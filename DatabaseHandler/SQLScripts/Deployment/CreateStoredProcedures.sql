@@ -1,0 +1,76 @@
+IF OBJECT_ID('SP_INSERT_PRODUCT', 'P') IS NOT NULL
+DROP PROC SP_INSERT_PRODUCT
+GO
+CREATE PROCEDURE SP_INSERT_PRODUCT
+@nombre varchar(120) = '',
+@precio decimal(9,2) = 0.00,
+@stock int = 0
+as
+INSERT INTO Product(nombre,precio,stock) values (@nombre,@precio,@stock)
+GO 
+
+IF OBJECT_ID('SP_UPDATE_PRODUCT', 'P') IS NOT NULL
+DROP PROC SP_UPDATE_PRODUCT
+GO
+CREATE PROCEDURE SP_UPDATE_PRODUCT
+@id int,
+@nombre varchar(120) = '',
+@precio decimal(9,2) = 0.00,
+@stock int = 0
+as
+UPDATE Product 
+	set nombre = @nombre
+	, precio = @precio
+	, stock = @stock
+WHERE id = @id 
+GO
+
+IF OBJECT_ID('SP_DELETE_PRODUCT', 'P') IS NOT NULL
+DROP PROC SP_DELETE_PRODUCT
+GO
+CREATE PROCEDURE SP_DELETE_PRODUCT
+@id int 
+as 
+DELETE FROM Product where id = @id 
+GO
+
+IF OBJECT_ID('SP_GET_PRODUCT_BY_ID', 'P') IS NOT NULL
+DROP PROC SP_GET_PRODUCT_BY_ID
+GO
+CREATE PROCEDURE SP_GET_PRODUCT_BY_ID
+@id int
+as
+SELECT * FROM Product where id = @id
+GO
+
+IF OBJECT_ID('SP_GET_ALL_PRODUCTS', 'P') IS NOT NULL
+DROP PROC SP_GET_ALL_PRODUCTS
+GO
+CREATE PROCEDURE SP_GET_ALL_PRODUCTS
+@offset int ,
+@pageSize int 
+as 
+SELECT * 
+	FROM Product
+	order by id 
+	OFFSET @offset ROWS
+	FETCH NEXT @pageSize ROWS ONLY 
+
+GO
+
+IF OBJECT_ID('SP_GET_PRODUCT_BY_NAME', 'P') IS NOT NULL
+DROP PROC SP_GET_PRODUCT_BY_NAME
+GO
+CREATE PROCEDURE SP_GET_PRODUCT_BY_NAME
+@name varchar(120)
+as
+SELECT * FROM Product 
+ where Nombre = @name
+GO
+
+IF OBJECT_ID('SP_GET_COUNT_ALL', 'P') IS NOT NULL
+DROP PROC SP_GET_COUNT_ALL
+GO
+CREATE PROCEDURE SP_GET_COUNT_ALL
+as
+SELECT COUNT(*) FROM Product

@@ -1,0 +1,39 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+
+  <ItemGroup>
+    <None Update="AppSettings.json" CopyToOutputDirectory="Always" CopyToPublishDirectory="Always" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="dbup-core" Version="4.6.3" />
+    <PackageReference Include="dbup-sqlserver" Version="4.6.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="6.0.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Binder" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="6.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="6.0.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="SQLScripts\BeforeDeployment\*.sql" />
+    <EmbeddedResource Include="SQLScripts\Deployment\*.sql" />
+    <EmbeddedResource Include="SQLScripts\PostDeployment\*.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Remove="SQLScripts\Deployment\CreateStoredProcedures.sql" />
+    <None Remove="SQLScripts\Deployment\InsertStatment.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="SQLScripts\BeforeDeployment\" />
+    <Folder Include="SQLScripts\PostDeployment\" />
+  </ItemGroup>
+</Project>
